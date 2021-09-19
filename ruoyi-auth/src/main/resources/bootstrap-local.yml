@@ -1,0 +1,29 @@
+# Tomcat
+server:
+  port: 9200
+
+# Spring
+spring:
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 127.0.0.1:8848
+        namespace: 1689a309-a084-4709-bd7b-21f023b5fef8
+        metadata:
+          #心跳间隔。时间单位:毫秒。
+          preserved.heart.beat.interval: 1000
+          #心跳超市。时间单位:毫秒。 即服务端此时间收不到客户端心跳，会将该客户端注册的实例设为不健康：
+          preserved.heart.beat.timeout: 3000
+          #心跳超时删除。时间单位:毫秒。即服务端此时间收不到客户端心跳，会将该客户端注册的实例删除：
+          preserved.ip.delete.timeout: 3000
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+        group: DEFAULT_GROUP
+        namespace: 1689a309-a084-4709-bd7b-21f023b5fef8
+        # 共享配置
+        extension-configs[0]:
+          data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          group: DEFAULT_GROUP
+          refresh: true
